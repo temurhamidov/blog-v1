@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ blog.title }}{% endblock %}
+
+{% block content %}
+
+    <hr>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-8">
+            <span>Sana: {{ blog.created | time:'h:i' }} / {{ blog.created|date:'d.m.Y' }}  | Author: {{ blog.author.username }} | </span>
+            <span> Ko'rish: {{ blog.view }}</span>
+            <h2>{{ blog.title }}</h2>
+            <div><img style="width: 80%;" src="{{ blog.image.url }}"></div>
+
+            <p>{{ blog.text }}</p>
+            {% for tag in blog.tags.all %}
+            <a href="{% url 'app:blog_tag' tag.slug %}"> #{{ tag.name }}  | </a>
+            {% endfor %}
+            <hr>
+            {% if user == blog.author %}
+            <p>
+            <a href="{% url 'app:blog_update' blog.slug %}" class="btn btn-success" >Update</a>
+            <a href="{% url 'app:blog_delete' blog.slug %}" class="btn btn-danger" >Delete</a>
+            </p>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <hr>
+            <div class="row">
+                <div class="col-6">
+                    {% for comment in blog.comment.all %}
+                    <p>{{ comment.user.username }}</p>
+                    <p>{{ comment.text }}</p>
+                    <hr>
+                    {% endfor %}
+                </div>
+                <div class="col-6">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p  }}
+                        <button  type="submit" >Add comment</button>
+                    </form>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

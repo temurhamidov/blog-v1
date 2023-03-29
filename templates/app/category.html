@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %} category {% endblock %}
+
+{% block content %}
+    
+       <h1>All Category</h1>
+{% for category in categories %}
+    <div class="card mb-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{ category.image.url }}" class="img-fluid rounded-start" alt="..." style="width: 150px">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+
+        <h5 class="card-title"><a href="{% url 'app:blog_category' category.slug %}">{{ category.name }}</a> | {{ category.blog.count }}</h5>
+        <p class="card-text">{{ category.text }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endfor %}
+{% endblock %}

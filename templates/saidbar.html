@@ -1,0 +1,12 @@
+<p class="text-info">Bloglar</p>
+{% for category in categories %}
+    <p><a href="{% url 'app:blog_category' category.slug %}" >{{ category.name }}</a></p>
+{% endfor %}
+<p>All Tags</p>
+<div class="row">
+    <div class="col-12">
+        {% for tag in tags %}
+            <a href="" >{{ tag.name }}</a>
+        {% endfor %}
+    </div>
+</div>

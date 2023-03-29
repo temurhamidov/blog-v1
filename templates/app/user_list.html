@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if category %} {{ category.name }}{% else %} Blog {% endif %}{% endblock %}
+
+{% block content %}
+<form method="get">
+    <input type="text", name="search">
+    <button type="submit">Search</button>
+</form>
+<div class="row">
+            <div class="col-3">Username</div>
+            <div class="col-3">First name</div>
+            <div class="col-3">Last login</div>
+            <div class="col-3">Date join</div>
+        </div>
+    {% for user in users %}
+        <div class="row">
+            <div class="col-3">{{ user.username }}</div>
+            <div class="col-3">{{ user.first_name }}</div>
+            <div class="col-3">{{ user.last_login }}</div>
+            <div class="col-3">{{ user.date_joined }}</div>
+        </div>
+    {% endfor %}
+{% endblock %}
